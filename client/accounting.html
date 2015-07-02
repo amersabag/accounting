@@ -71,7 +71,7 @@
 			  <div><label>Invoice link: <input type="url" name="invoiceLink" value="{{defaultInvoiceLink}}"></label></div>
 			  <div><label>Description: <textarea name="description">{{defaultDescription}}</textarea></label></div>
 			  <div><label>Note: <textarea name="note">{{defaultNote}}</textarea></label></div>
-			  <div><input type="submit"><input type="reset" class="reset"></div>
+			  <div><input type="submit"> <button class="reset">New</button></div>
 		  </form>
 		</div>
 		<hr>
@@ -102,8 +102,8 @@
 						<td>{{toAccount}}</td>
 						<td>{{amount}}</td>
 						<td>{{dollarAmount}}</td>
-						<td>{{tlAmount}}<br><small>{{tlRatio}}</small></td>
-						<td>{{euroAmount}}<br><small>{{euroRatio}}</small></td>
+						<td>{{tlAmount}}<br><small>{{dollarToTl}}</small></td>
+						<td>{{euroAmount}}<br><small>{{dollarToEuro}}</small></td>
 						<td>{{formatDate date}}</td>
 						<td>{{category}}</td>
 						<td>{{invoiceLink}}</td>

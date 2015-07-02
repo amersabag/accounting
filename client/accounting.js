@@ -142,6 +142,7 @@ Template.body.events({
 
 Template.reports.helpers({
 	accounts: function(){
+		var yearMonths = [];
 		var getYearMonth = function(date)
 		{
 			var month = date.getMonth() + 1;
@@ -316,6 +317,7 @@ Template.transactions.events({
 	'click .reset': function()
 	{
 		Session.set('currentTransactionId', null);
+		return false;
 	},
   'submit .addTransaction': function (event) {
     var obj = {
