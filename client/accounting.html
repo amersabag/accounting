@@ -8,57 +8,72 @@
 
 <body>
 	{{> loginButtons}}
-  <h1>Welcome to Simple Multi-Currency Accounting System SMCAS!</h1>
 	{{#if currentUser}}
-		<button id="transactionsPage">Transactions</button> <button id="reportsPage">Reports</button>
-		<hr>
-		{{#if currentPageIsTransactions}}
-	    {{> transactions}}
-	  {{/if}}
-	  {{#if currentPageIsReports}}
-			{{> reports}}
+		<div>
+			<label>Select Project: <input id="projects"></label>
+		</div>
+		{{#if currentProject}}
+			<div>
+				<button id="transactionsPage">Transactions</button>
+				<button id="reportsPage">Reports</button>
+			</div>
+			<hr>
+			{{#if currentPageIsTransactions}}
+		    {{> transactions}}
+		  {{/if}}
+		  {{#if currentPageIsReports}}
+				{{> reports}}
+			{{/if}}
 		{{/if}}
 	{{else}}
-		You need to login to have access to you transctions!!!!!!!!!!!!!!!!
+		<h1>Welcome to Simple Multi-Currency Accounting System SMCAS!</h1>
+		<p>You need to login to have access to you transctions!!!!!!!!!!!!!!!!</p>
 	{{/if}}
 </body>
 
 
 
 <template name="reports">
-	Per account report:
-	{{#each accounts}}
-		{{account}}<br>
-		{{#each months}}
-				&nbsp;&nbsp;{{year}}, {{month}}<br>
-			{{#each categories}}
-					&nbsp;&nbsp;&nbsp;&nbsp;{{category}}: {{sumAmount}}<br>
-			{{/each}}
-		{{/each}}
+	<div>
+		Per account report:
 		<br>
-		Total Balance: {{totalBalance}}
-		<br><br><br>
-	{{/each}}
-
+		{{#each accounts}}
+			{{account}}<br>
+			{{#each months}}
+					&nbsp;&nbsp;{{year}}, {{month}}<br>
+				{{#each categories}}
+						&nbsp;&nbsp;&nbsp;&nbsp;{{category}}: {{sumAmount}}<br>
+				{{/each}}
+			{{/each}}
+			<br>
+			Total Balance: {{totalBalance}}
+			<br><br><br>
+		{{/each}}
+	</div>
 </template>
 
 <template name="transactions">
-	<label>Dollar to TL multiply: <input id="dollarToTl" name="dollarToTl" type="number" min="0" value="2.586"></label>
-	<label>Dollar to Euro multiply: <input id="dollarToEuro" name="dollarToEuro" type="number" min="0" value="0.91"></label>
-	<hr>
-	  <form class="addTransaction">
-		  <label>From Account: <input id="fromAccount" maxlength="50" name="fromAccount"></label>
-		  <br><label>To Account<input id="toAccount" maxlength="50" name="toAccount"></label>
-		  <br><label>Amount in Dollar: <input type="number" step="0.01" min="0" name="dollarAmount"></label>
-		  <br><label>Amount in TL: <input type="number" step="0.01" min="0" name="tlAmount"></label>
-		  <br><label>Amount in Euro: <input type="number" step="0.01" min="0" name="euroAmount"></label>
-		  <br><label>Date: <input type="text" size="10" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" value="{{currentDate}}" required name="date"></label>
-		  <br><label>Category: <input maxlength="50" required name="category"></label>
-		  <br><label>Invoice link: <input type="url" name="invoiceLink"></label>
-		  <br><label>Description: <input maxlength="1000" name="description"></label>
-		  <br><label>Note: <input maxlength="1000" name="note"></label>
-		  <br><input type="submit">
-	  </form>
+	<div>
+		<div>
+			<label>Dollar to TL multiply: <input id="dollarToTl" name="dollarToTl" type="number" min="0" value="2.586"></label>
+			<label>Dollar to Euro multiply: <input id="dollarToEuro" name="dollarToEuro" type="number" min="0" value="0.91"></label>
+		</div>
+		<hr>
+		<div>
+		  <form class="addTransaction">
+			  <div><label>From Account: <input id="fromAccount" name="fromAccount" value="{{defaultFromAccount}}"></label></div>
+			  <div><label>To Account<input id="toAccount" name="toAccount" value="{{defaultToAccount}}"></label></div>
+			  <div><label>Category: <input id="category" name="category" value="{{defaultCategory}}"></label></div>
+			  <div><label>Amount in Dollar: <input type="number" step="0.01" min="0" name="dollarAmount" value="{{defaultDollarAmount}}"></label></div>
+			  <div><label>Amount in TL: <input type="number" step="0.01" min="0" name="tlAmount" value="{{defaultTlAmount}}"></label></div>
+			  <div><label>Amount in Euro: <input type="number" step="0.01" min="0" name="euroAmount" value="{{defaultEuroAmount}}"></label></div>
+			  <div><label>Date: <input type="text" size="10" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required name="date" value="{{formatDate defaultDate}}"></label></div>
+			  <div><label>Invoice link: <input type="url" name="invoiceLink" value="{{defaultInvoiceLink}}"></label></div>
+			  <div><label>Description: <textarea name="description">{{defaultDescription}}</textarea></label></div>
+			  <div><label>Note: <textarea name="note">{{defaultNote}}</textarea></label></div>
+			  <div><input type="submit"><input type="reset" class="reset"></div>
+		  </form>
+		</div>
 		<hr>
 		<table>
 			<thead>
@@ -76,27 +91,29 @@
 					<th>Description</th>
 					<th>Note</th>
 					<th>Created At</th>
+					<th>X</th>
 				</tr>
 			</thead>
 			<tbody>
-
-	  {{#each transactions}}
-				<tr>
-					<td>{{_id}}</td>
-					<td>{{fromAccount}}</td>
-					<td>{{toAccount}}</td>
-					<td>{{amount}}</td>
-					<td>{{dollarAmount}}</td>
-					<td>{{tlAmount}}<br><small>{{tlRatio}}</small></td>
-					<td>{{euroAmount}}<br><small>{{euroRatio}}</small></td>
-					<td>{{date}}</td>
-					<td>{{category}}</td>
-					<td>{{invoiceLink}}</td>
-					<td>{{description}}</td>
-					<td>{{note}}</td>
-					<td>{{createdAt}}</td>
-				</tr>
-	  {{/each}}
+		  {{#each transactions}}
+					<tr>
+						<td><a href="#" class="transactionId">{{_id}}</a></td>
+						<td>{{fromAccount}}</td>
+						<td>{{toAccount}}</td>
+						<td>{{amount}}</td>
+						<td>{{dollarAmount}}</td>
+						<td>{{tlAmount}}<br><small>{{tlRatio}}</small></td>
+						<td>{{euroAmount}}<br><small>{{euroRatio}}</small></td>
+						<td>{{formatDate date}}</td>
+						<td>{{category}}</td>
+						<td>{{invoiceLink}}</td>
+						<td>{{description}}</td>
+						<td>{{note}}</td>
+						<td>{{createdAt}}</td>
+						<td><a href="#" class="deleteTransaction">X</a></td>
+					</tr>
+		  {{/each}}
 			</tbody>
 		</table>
+	</div>
 </template>
