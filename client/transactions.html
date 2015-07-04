@@ -1,0 +1,70 @@
+<template name="transactions">
+	<div>
+		<div>
+			<label>Dollar to TL multiply: <input id="dollarToTl" name="dollarToTl" type="number" min="0" value="2.586"></label>
+			<label>Dollar to Euro multiply: <input id="dollarToEuro" name="dollarToEuro" type="number" min="0" value="0.91"></label>
+		</div>
+		<hr>
+		<div>
+			<form class="addTransaction">
+				<div><label>From Account: <input id="fromAccount" name="fromAccount" value="{{defaultFromAccount}}"></label></div>
+				<div><label>To Account<input id="toAccount" name="toAccount" value="{{defaultToAccount}}"></label></div>
+				<div><label>Item Text: <input type="text" name="itemText" value="{{defaultItemText}}"></label></div>
+				<div><label>Category: <input id="category" name="category" value="{{defaultCategory}}"></label></div>
+				<div><label>Sub Category: <input id="subCategory" name="subCategory" value="{{defaultSubCategory}}"></label></div>
+				<div><label>Amount in Dollar: <input type="number" step="0.01" min="0" name="dollarAmount" value="{{defaultDollarAmount}}"></label></div>
+				<div><label>Amount in TL: <input type="number" step="0.01" min="0" name="tlAmount" value="{{defaultTlAmount}}"></label></div>
+				<div><label>Amount in Euro: <input type="number" step="0.01" min="0" name="euroAmount" value="{{defaultEuroAmount}}"></label></div>
+				<div><label>Date: <input type="text" size="10" pattern="{{datePattern}}" required name="date" value="{{formatDate defaultDate}}"></label></div>
+				<div><label>Invoice Link: <textarea name="invoiceLink">{{defaultInvoiceLink}}</textarea></label></div>
+				<div><label>Description: <textarea name="description">{{defaultDescription}}</textarea></label></div>
+				<div><label>Note: <textarea name="note">{{defaultNote}}</textarea></label></div>
+				<div><input type="submit"> <button class="reset">New</button></div>
+			</form>
+		</div>
+		<hr>
+		<table>
+			<thead>
+			<tr>
+				<th>Id</th>
+				<th>From Account</th>
+				<th>To Account</th>
+				<th>Category</th>
+				<th>Sub Category</th>
+				<th>Amount</th>
+				<th>Dollar</th>
+				<th>TL</th>
+				<th>Euro</th>
+				<th>Date</th>
+				<th>Invoice</th>
+				<th>Description</th>
+				<th>Note</th>
+				<th>Created At</th>
+				<th>X</th>
+			</tr>
+			</thead>
+			<tbody>
+			{{#each transactions}}
+				<tr>
+					<td><a href="#" class="transactionId">{{_id}}</a></td>
+					<td>{{fromAccount}}</td>
+					<td>{{toAccount}}</td>
+					<td>{{itemText}}</td>
+					<td>{{category}}</td>
+					<td>{{subCategory}}</td>
+					<td>{{amount}}</td>
+					<td>{{dollarAmount}}</td>
+					<td>{{tlAmount}}<br><small>{{dollarToTl}}</small></td>
+					<td>{{euroAmount}}<br><small>{{dollarToEuro}}</small></td>
+					<td>{{formatDate date}}</td>
+					<td>{{invoiceLink}}</td>
+					<td>{{description}}</td>
+					<td>{{note}}</td>
+					<td>{{createdAt}}</td>
+					<td><a href="#" class="deleteTransaction">X</a></td>
+				</tr>
+			{{/each}}
+			</tbody>
+		</table>
+	</div>
+</template>

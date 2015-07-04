@@ -1,0 +1,31 @@
+<template name="reports">
+	<div>
+		Per account report:
+		<br>
+		{{#each accountReports}}
+			{{account}}<br>
+			{{#each months}}
+				&nbsp;&nbsp;{{year}}, {{month}}:<br>
+				{{#each categories}}
+					&nbsp;&nbsp;&nbsp;&nbsp;{{category}}: <br>
+					{{#each subCategories}}
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{subCategory}}: {{sumAmount}}:
+					{{/each}}
+					<br>
+					Category Balance: {{balance}}
+				{{/each}}
+				<br>
+				Month Balance: {{balance}}
+			{{/each}}
+			<br>
+			Account Balance: {{balance}}
+			<br><br><br>
+		{{/each}}
+	</div>
+	<div>
+		{{#each yearMonths}}
+			<div>{{yearMonth}}, {{#if isOpen}}<a href="" class="close">Close</a>{{/if}} {{#if isClosed}}<a href="" class="open">Open</a>{{/if}}</div>
+		{{/each}}
+	</div>
+</template>
+

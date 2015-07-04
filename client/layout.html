@@ -1,0 +1,35 @@
+<head>
+  <title>accounting</title>
+	<style>
+		th, td {border: 1px black solid}
+		table {border-collapse: collapse}
+	</style>
+</head>
+
+<body>
+	{{> loginButtons}}
+	{{#if currentUser}}
+		<div>
+			<label>Select Project: <input id="projects"></label>
+		</div>
+		{{#if currentProject}}
+			<div>
+				<button id="transactionsPage">Transactions</button>
+				<button id="reportsPage">Reports</button>
+			</div>
+			<hr>
+			{{#if currentPageIsTransactions}}
+		    {{> transactions}}
+		  {{/if}}
+		  {{#if currentPageIsReports}}
+				{{> reports}}
+			{{/if}}
+		{{/if}}
+	{{else}}
+		<h1>Welcome to Simple Multi-Currency Accounting System SMCAS!</h1>
+		<p>You need to login to have access to you transctions!!!!!!!!!!!!!!!!</p>
+	{{/if}}
+</body>
+
+
+
