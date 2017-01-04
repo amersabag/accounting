@@ -9,7 +9,8 @@ Template.reports.helpers({
 	{
 		return this.closed == 1 || this.closed == 2;
 	},
-	accounts: function(){
+	YearMonthReport: function(){
+
 		var getYearMonth = function(date)
 		{
 			var month = pad('00', date.getMonth() + 1, true);

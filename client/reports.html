@@ -2,10 +2,10 @@
 	<div>
 		Per account report:
 		<br>
-		{{#each accountReports}}
-			{{account}}<br>
+		{{#each YearMonthReport}}
+			{{year}}, {{month}}<br>
 			{{#each months}}
-				&nbsp;&nbsp;{{year}}, {{month}}:<br>
+				&nbsp;&nbsp;:{{account}}<br>
 				{{#each categories}}
 					&nbsp;&nbsp;&nbsp;&nbsp;{{category}}: <br>
 					{{#each subCategories}}
